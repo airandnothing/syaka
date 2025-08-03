@@ -1,5 +1,7 @@
+'use client';
+
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import type { CartState, CartItem, Product } from '@/types';
 
 export const useCartStore = create<CartState>()(
@@ -82,6 +84,7 @@ export const useCartStore = create<CartState>()(
     }),
     {
       name: 'mavigadget-cart',
+      storage: createJSONStorage(() => (typeof window !== 'undefined' ? localStorage : (undefined as unknown as Storage))),
     }
   )
 );
